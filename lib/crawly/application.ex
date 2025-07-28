@@ -41,8 +41,11 @@ defmodule Crawly.Application do
         port = Application.get_env(:crawly, :port, 4001)
 
         [
-          {Plug.Cowboy,
-           scheme: :http, plug: Crawly.API.Router, options: [port: port]}
+          Plug.Cowboy.child_spec(
+            scheme: :http,
+            plug: Crawly.API.Router,
+            options: [port: port]
+          )
         ]
     end
   end
